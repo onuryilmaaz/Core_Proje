@@ -12,9 +12,6 @@ namespace Core_Proje.Controllers
 		PortfolioManager portfolioManager = new PortfolioManager(new EfPortfolioDal());
 		public IActionResult Index()
 		{
-			ViewBag.v1 = "Proje Listesi";
-			ViewBag.v2 = "Projelerim";
-			ViewBag.v3 = "Proje Listesi";
 			var values = portfolioManager.TGetList();
 			return View(values);
 		}
@@ -23,9 +20,6 @@ namespace Core_Proje.Controllers
 
 		public IActionResult AddPortfolio()
 		{
-			ViewBag.v1 = "Proje Listesi";
-			ViewBag.v2 = "Projelerim";
-			ViewBag.v3 = "Proje Ekleme";
 			return View();
 		}
 
@@ -57,30 +51,29 @@ namespace Core_Proje.Controllers
 		}
 		public IActionResult EditPortfolio(int id)
 		{
-			ViewBag.v1 = "Proje Listesi";
-			ViewBag.v2 = "Projelerim";
-			ViewBag.v3 = "Proje Düzenleme";
 			var values = portfolioManager.TGetByID(id);
 			return View(values);
 		}
 		[HttpPost]
 		public IActionResult EditPortfolio(Portfolio portfolio)
 		{
-			PortfolioValidator validations = new PortfolioValidator();
-			ValidationResult results = validations.Validate(portfolio);
-			if(!results.IsValid)
-			{
-				portfolioManager.TUpdate(portfolio);
-				return RedirectToAction("Index");
-			}
-			else
-			{
-				foreach(var item in results.Errors)
-				{
-					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-				}
-			}
-			return View();
+			//PortfolioValidator validations = new PortfolioValidator();
+			//ValidationResult results = validations.Validate(portfolio);
+			//if(!results.IsValid)
+			//{
+			//	portfolioManager.TUpdate(portfolio);
+			//	return RedirectToAction("Index");
+			//}
+			//else
+			//{
+			//	foreach(var item in results.Errors)
+			//	{
+			//		ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+			//	}
+			//}
+			//return View();
+			portfolioManager.TUpdate(portfolio);
+			return RedirectToAction("Index");
 		}
 	}
 }
