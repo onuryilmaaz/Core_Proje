@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core_Proje.Areas.Writer.Controllers
 {
+	[AllowAnonymous]
 	[Area("Writer")]
 	[Route("Writer/[controller]/[action]")]
 

@@ -2,10 +2,14 @@
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Core_Proje.Areas.Writer.Controllers
 {
+	[AllowAnonymous]
 	[Area("Writer")]
 	[Route("Writer/[controller]/[action]")]
 	public class RegisterController : Controller
@@ -26,15 +30,14 @@ namespace Core_Proje.Areas.Writer.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Index(UserRegisterViewModel p)
 		{
-
 			WriterUser w = new WriterUser()
 			{
 				Name = p.Name,
 				Surname = p.Surname,
 				Email = p.Mail,
 				UserName = p.UserName,
-				ImageUrl = p.ImageUrl
-			};
+				ImageUrl = p.ImageUrl,
+		};
 			if (p.ConfirmPassword == p.Password)
 			{
 				var result = await _userManager.CreateAsync(w, p.Password);
